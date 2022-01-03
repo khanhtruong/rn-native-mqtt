@@ -33,7 +33,7 @@
     "buffer": "^5.4.0",
     "random-id": "^1.0.3",
     "tiny-emitter": "^2.1.0",
-    "base-64": "^0.1.0",
+    "base-64": "^0.1.0"
   },
   "peerDependencies": {},
   "devDependencies": {
