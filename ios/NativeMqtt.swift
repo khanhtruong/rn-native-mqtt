@@ -59,7 +59,7 @@ class NativeMqtt: RCTEventEmitter {
     }
 
     @objc(publish:topic:base64Payload:qos:retained:)
-    func publish(id: String, topic: String, base64Payload: String, qos: NSInteger, retained: Bool) {
+    func publish(id: String, topic: String, base64Payload: NSArray, qos: NSInteger, retained: Bool) {
         clients[id]?.publish(topic: topic, base64Payload: base64Payload, qos: forQosInt(qos: qos), retained: retained)
     }
 
