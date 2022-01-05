@@ -131,13 +131,11 @@ class MqttClient {
         }
     }
 
-    func publish(topic: String, base64Payload: String, qos: CocoaMQTTQoS, retained: Bool) {
-        guard let payload = Data(base64Encoded: base64Payload) else {
-            return
-        }
+    func publish(topic: String, base64Payload: NSArray, qos: CocoaMQTTQoS, retained: Bool) {
+        let myNewName = NSMutableArray(array:base64Payload)
 
         do {
-            let message = CocoaMQTTMessage(topic: topic, payload: [UInt8](payload))
+            let message = CocoaMQTTMessage(topic: topic, payload: myNewName as! [UInt8])
             message.qos = qos
             message.retained = retained
             
