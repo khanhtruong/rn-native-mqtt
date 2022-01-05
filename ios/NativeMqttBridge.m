@@ -32,7 +32,7 @@ RCT_EXTERN_METHOD(connect:(NSString *)id host:(NSString *)host options:(NSDictio
 
 RCT_EXTERN_METHOD(subscribe:(NSString *)id topicList:(NSArray)topicList qosList:(NSArray)qosList)
 
-RCT_EXTERN_METHOD(publish:(NSString *)id topic:(NSString *)topic base64Payload:(NSString *)base64Payload qos:(nonnull NSNumber *)qos retained:(BOOL *)retained)
+RCT_EXTERN_METHOD(publish:(NSString *)id topic:(NSString *)topic base64Payload:(NSArray *)base64Payload qos:(nonnull NSNumber *)qos retained:(BOOL *)retained)
 
 RCT_EXTERN_METHOD(unsubscribe:(NSString *)id topicList:(NSArray)topicList)
 
