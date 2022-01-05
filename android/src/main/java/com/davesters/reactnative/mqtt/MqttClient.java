@@ -161,8 +161,12 @@ class MqttClient {
         }
     }
 
-    void publish(final String topic, final String base64Payload, final int qos, final boolean retained) {
-        MqttMessage message = new MqttMessage(Base64.decode(base64Payload, Base64.DEFAULT));
+   void publish(final String topic, final ReadableArray messages, final int qos, final boolean retained) {
+        byte[] decoded = new byte[messages.size()];
+        for (int i = 0; i < messages.size(); i++) {
+            decoded[i] = new Integer(messages.getInt(i)).byteValue();
+        }
+        MqttMessage message = new MqttMessage(decoded);
         message.setQos(qos);
         message.setRetained(retained);
 
