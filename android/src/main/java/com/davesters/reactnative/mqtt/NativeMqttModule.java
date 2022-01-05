@@ -59,12 +59,13 @@ public class NativeMqttModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void publish(final String id, final String topic, final String base64Payload, final int qos, final boolean retained) {
+    public void publish(final String id, final String topic, final ReadableArray messages, final int qos,
+            final boolean retained) {
         if (!clients.containsKey(id)) {
             return;
         }
 
-        clients.get(id).publish(topic, base64Payload, qos, retained);
+        clients.get(id).publish(topic, messages, qos, retained);
     }
 
     @ReactMethod
