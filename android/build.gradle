@@ -53,7 +53,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.facebook.react:react-native:+"
+    implementation "com.facebook.react:react-native:${safeExtGet('reactnativeVersion', '+')}"
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
     implementation group: 'com.heroku.sdk', name: 'env-keystore', version: '1.0.4'
 }
@@ -91,7 +91,7 @@ afterEvaluate { project ->
     task androidJavadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
-        //classpath += files(project.getConfigurations().getByName('implementation').asList())
+//         classpath += files(project.getConfigurations().getByName('compile').asList())
         include '**/*.java'
     }
 
@@ -122,9 +122,9 @@ afterEvaluate { project ->
         configuration = configurations.archives
         repositories.maven {
             // Deploy to react-native-event-bridge/maven, ready to publish to npm
-            url = uri("file://${projectDir}/../android/maven")
+             url = uri("file://${projectDir}/../android/maven")
 
-            //configureReactNativePom pom
+//             configureReactNativePom pom
         }
     }
 }
