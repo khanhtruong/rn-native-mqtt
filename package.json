@@ -5,10 +5,10 @@
   "description": "An MQTT client or React Native that actually works with a simple Javascript interface",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
-  "homepage": "https://github.com/FrozenPyrozen/rn-native-mqtt",
+  "homepage": "https://github.com/itweb62/rn-native-mqttt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FrozenPyrozen/rn-native-mqtt"
+    "url": "https://github.com/itweb62/rn-native-mqttt"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
