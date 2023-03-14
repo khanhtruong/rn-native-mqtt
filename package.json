@@ -3,7 +3,7 @@
   "title": "React Native Native Mqtt",
   "version": "0.1.12",
   "description": "An MQTT client or React Native that actually works with a simple Javascript interface",
-  "main": "./src/index.ts",
+  "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "homepage": "https://github.com/davesters/rn-native-mqtt",
   "repository": {
