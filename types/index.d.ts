@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 export interface TlsOptions {
-    caDer?: Buffer;
+    caDer?: string;
     cert?: string;
     key?: string;
     p12?: Buffer;
