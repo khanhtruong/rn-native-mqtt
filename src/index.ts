@@ -56,7 +56,7 @@ export class Client {
 
 	constructor(url: string) {
 		this.emitter = new TinyEmitter();
-		this.id = randomId(12);
+		this.id = "test";
 		this.url = url;
 
 		NativeMqtt.newClient(this.id);
