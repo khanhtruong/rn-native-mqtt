@@ -29,6 +29,7 @@ import java.security.cert.X509Certificate;
 import java.util.concurrent.atomic.AtomicReference;
 import java.security.KeyStore;
 import javax.net.ssl.*;
+import android.util.Log;
 
 class MqttClient {
 
@@ -36,6 +37,7 @@ class MqttClient {
     private static final String EVENT_NAME_ERROR = "rn-native-mqtt_error";
     private static final String EVENT_NAME_DISCONNECT = "rn-native-mqtt_disconnect";
     private static final String EVENT_NAME_MESSAGE = "rn-native-mqtt_message";
+    private static final String TAG = "mqtt_lib";
 
     private final ReactApplicationContext reactContext;
     private final String id;
@@ -53,21 +55,32 @@ class MqttClient {
     void connect(final String host, final ReadableMap options, Callback callback) {
         connectCallback.set(callback);
 
+        Log.e(TAG,"Lib host: " + host);
+
         try {
             this.client.set(new MqttAsyncClient(host, options.getString("clientId"), new MemoryPersistence()));
 
+       
+
             MqttConnectOptions connOpts = new MqttConnectOptions();
+
+            if (options.hasKey("username")) {
+                connOpts.setUserName(options.getString("username"));
+            }
+
             connOpts.setCleanSession(!options.hasKey("cleanSession") || options.getBoolean("cleanSession"));
             connOpts.setKeepAliveInterval(options.hasKey("keepAliveInterval") ? options.getInt("keepAliveInterval") : 60);
             connOpts.setConnectionTimeout(options.hasKey("timeout") ? options.getInt("timeout") : 10);
             connOpts.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1_1);
             connOpts.setMaxInflight(options.hasKey("maxInFlightMessages") ? options.getInt("maxInFlightMessages") : 10);
             connOpts.setAutomaticReconnect(options.hasKey("autoReconnect") && options.getBoolean("autoReconnect"));
-            connOpts.setUserName(options.hasKey("username") ? options.getString("username") : "");
+           
             connOpts.setPassword(options.hasKey("password") ? options.getString("password").toCharArray() : "".toCharArray());
 
             if (options.hasKey("tls")) {
                 ReadableMap tlsOptions = options.getMap("tls");
+                Log.e(TAG,"Lib tlsOptions caDer: " + tlsOptions.getString("caDer"));
+                Log.e(TAG,"Lib tlsOptions cert: " + tlsOptions.getString("cert"));
                 String ca = tlsOptions.hasKey("caDer") ? tlsOptions.getString("caDer") : null;
                 String cert = tlsOptions.hasKey("cert") ? tlsOptions.getString("cert") : null;
                 String key = tlsOptions.hasKey("key") ? tlsOptions.getString("key") : null;
@@ -84,7 +97,9 @@ class MqttClient {
 
                 if (ca != null) {
                     CertificateFactory cf = CertificateFactory.getInstance("X.509");
-                    InputStream caInput = new ByteArrayInputStream(Base64.decode(ca, Base64.DEFAULT));
+                    Log.e(TAG,"Lib ca: " + ca);
+                    ByteArrayInputStream caInput = new ByteArrayInputStream(ca.getBytes());
+                    Log.e(TAG,"Lib caInput: " + caInput);
                     Certificate caCert = cf.generateCertificate(caInput);
                     caInput.close();
 
@@ -107,6 +122,7 @@ class MqttClient {
             this.client.get().setCallback(new MqttEventCallback());
             this.client.get().connect(connOpts, null, new ConnectMqttActionListener());
         } catch (Exception ex) {
+            Log.e(TAG,"Exeption from lib: " + ex);
             callback.invoke(ex.getMessage());
             ex.printStackTrace();
         }
