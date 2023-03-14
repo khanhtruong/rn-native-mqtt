@@ -1,6 +1,6 @@
 import { NativeModules, NativeEventEmitter } from 'react-native';
 import { TinyEmitter } from 'tiny-emitter';
-import * as randomId from 'random-id';
+import { randomId } from 'random-id';
 import { Buffer } from 'buffer';
 
 const { NativeMqtt } = NativeModules;
