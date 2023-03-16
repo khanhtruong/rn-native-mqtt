@@ -2,6 +2,7 @@ import { NativeModules, NativeEventEmitter } from 'react-native';
 import { TinyEmitter } from 'tiny-emitter';
 import * as randomId from 'random-id';
 import { Buffer } from 'buffer';
+import { Will } from './Will';
 
 const { NativeMqtt } = NativeModules;
 const mqttEventEmitter = new NativeEventEmitter(NativeMqtt);
@@ -14,12 +15,7 @@ export interface TlsOptions {
 	pass?: string;
 }
 
-export interface WillOptions {
-	topic? : String;
-	payload? : String;
-	qos? : String;
-	retain? : Boolean;
-}
+
 
 export interface ConnectionOptions {
 	clientId: string;
@@ -33,7 +29,7 @@ export interface ConnectionOptions {
 	tls?: TlsOptions;
 	allowUntrustedCA?: boolean;
 	enableSsl?: boolean;
-	will?: WillOptions;
+	will?: Will;
 }
 
 export interface PublishOptions {
