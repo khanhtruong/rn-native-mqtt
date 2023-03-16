@@ -34,6 +34,8 @@ RCT_EXTERN_METHOD(subscribe:(NSString *)id topicList:(NSArray)topicList qosList:
 
 RCT_EXTERN_METHOD(publish:(NSString *)id topic:(NSString *)topic base64Payload:(NSArray *)base64Payload qos:(nonnull NSNumber *)qos retained:(BOOL *)retained)
 
+RCT_EXTERN_METHOD(willmessage:(NSString *)id topic:(NSString *)topic base64Payload:(NSArray *)base64Payload qos:(nonnull NSNumber *)qos retained:(BOOL *)retained)
+
 RCT_EXTERN_METHOD(unsubscribe:(NSString *)id topicList:(NSArray)topicList)
 
 RCT_EXTERN_METHOD(disconnect:(NSString *)id)

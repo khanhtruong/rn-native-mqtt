@@ -63,6 +63,13 @@ class NativeMqtt: RCTEventEmitter {
         clients[id]?.publish(topic: topic, base64Payload: base64Payload, qos: forQosInt(qos: qos), retained: retained)
     }
 
+    @objc(willmessage:topic:base64Payload:qos:retained:)
+    func willmessage(id: String, topic: String, base64Payload: NSArray, qos: NSInteger, retained: Bool) {
+        clients[id]?.willmessage(topic: topic, base64Payload: base64Payload, qos: forQosInt(qos: qos), retained: retained)
+    }
+    
+
+
     @objc(disconnect:)
     func disconnect(id: String) {
         clients[id]?.disconnect()

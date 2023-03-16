@@ -163,6 +163,15 @@ export class Client {
 		NativeMqtt.publish(this.id, topic, message.toString('base64'), qos, retained);
 	}
 
+	public willmessage(topic: string, message: Buffer, qos: number = 0, retained: boolean = false) {
+		if (this.closed) {
+			throw new Error('client already closed');
+		}
+
+
+		NativeMqtt.willmessage(this.id, topic, message.toString('base64'), qos, retained);
+	}
+
 	public disconnect() {
 		if (this.closed) {
 			throw new Error('client already closed');

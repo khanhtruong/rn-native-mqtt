@@ -39,17 +39,8 @@ class MqttClient {
         self.client.port = UInt16(url.port != nil ? url.port! : 1883)
         self.client.delegate = self
 
+    
       
-        if let willmsg = options["will"] as? NSDictionary {
-            do {
-                let msg = Will(fromJsWill: willmsg)
-                self.client.willMessage = msg.toCocoaMqttMessage()
-            }
-           catch let error {
-                throw error
-            }
-           
-        } 
 
         if let clientId = options["clientId"] as! String? {
             self.client.clientID = clientId
@@ -78,6 +69,7 @@ class MqttClient {
         if let password = options["password"] as! String? {
             self.client.password = password
         }
+
 
 
 
@@ -137,6 +129,23 @@ class MqttClient {
     func unsubscribe(topic: String) {
         do {
             self.client.unsubscribe(topic)
+        } catch {
+            sendEvent(name: EventType.Error.rawValue, body: [
+                "id": self.id,
+                "error": error.localizedDescription
+            ])
+        }
+    }
+
+    func willmessage(topic: String, base64Payload: NSArray, qos: CocoaMQTTQoS, retained: Bool) {
+        let myNewName = NSMutableArray(array:base64Payload)
+
+        do {
+            let message = CocoaMQTTMessage(topic: topic, payload: myNewName as! [UInt8])
+            message.qos = qos
+            message.retained = retained
+            
+            self.client.willMessage = message
         } catch {
             sendEvent(name: EventType.Error.rawValue, body: [
                 "id": self.id,
