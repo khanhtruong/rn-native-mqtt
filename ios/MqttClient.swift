@@ -39,6 +39,18 @@ class MqttClient {
         self.client.port = UInt16(url.port != nil ? url.port! : 1883)
         self.client.delegate = self
 
+      
+        if let willmsg = options["will"] as? NSDictionary {
+            do {
+                let msg = Will(fromJsWill: willmsg)
+                self.client.willMessage = msg.toCocoaMqttMessage()
+            }
+           catch let error {
+                throw error
+            }
+           
+        } 
+
         if let clientId = options["clientId"] as! String? {
             self.client.clientID = clientId
         }
@@ -66,6 +78,8 @@ class MqttClient {
         if let password = options["password"] as! String? {
             self.client.password = password
         }
+
+
 
         if let tlsOptions = options["tls"] as! NSDictionary? {
             if let p12base64Cert = tlsOptions["p12"] as! String?, let p12Pass = tlsOptions["pass"] as! String? {

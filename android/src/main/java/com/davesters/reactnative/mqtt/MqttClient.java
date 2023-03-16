@@ -72,6 +72,14 @@ class MqttClient {
             connOpts.setAutomaticReconnect(options.hasKey("autoReconnect") && options.getBoolean("autoReconnect"));
             connOpts.setPassword(options.hasKey("password") ? options.getString("password").toCharArray() : "".toCharArray());
 
+            if(options.hasKey("will"))
+            {
+                ReadableMap mapwill = options.getMap("will");
+                String messages = mapwill.getString("payload");
+                byte[] decoded = messages.getBytes();
+                connOpts.setWill(mapwill.getString("topic"),decoded,mapwill.getInt("qos"),mapwill.getBoolean("retain"));
+            }
+             
             if (options.hasKey("tls")) {
                 ReadableMap tlsOptions = options.getMap("tls");
 

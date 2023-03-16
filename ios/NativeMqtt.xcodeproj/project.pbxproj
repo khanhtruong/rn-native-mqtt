@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		678DE551230DE3310083C4AF /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678DE54C230DE3300083C4AF /* EventType.swift */; };
+		E93CF7F128C236D3004BC4FA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CF7E228C236D2004BC4FA /* Helpers.swift */; };
+		E93CF7F428C236D3004BC4FA /* Will.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93CF7E528C236D2004BC4FA /* Will.swift */; };
 		678DE552230DE3310083C4AF /* MqttClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678DE54D230DE3300083C4AF /* MqttClient.swift */; };
 		678DE553230DE3310083C4AF /* NativeMqtt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678DE54E230DE3300083C4AF /* NativeMqtt.swift */; };
 		678DE554230DE3310083C4AF /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678DE54F230DE3300083C4AF /* EventEmitter.swift */; };
@@ -507,6 +509,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF60E74E2488507800B9159E /* FrameSubscribe.swift in Sources */,
+				E93CF7F128C236D3004BC4FA /* Helpers.swift in Sources */,
+				E93CF7F428C236D3004BC4FA /* Will.swift in Sources */,
 				678DE553230DE3310083C4AF /* NativeMqtt.swift in Sources */,
 				EF60E7522488507800B9159E /* CocoaMQTTTimer.swift in Sources */,
 				EF60E7462488507800B9159E /* FramePingResp.swift in Sources */,

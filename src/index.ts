@@ -14,6 +14,13 @@ export interface TlsOptions {
 	pass?: string;
 }
 
+export interface WillOptions {
+	topic? : String;
+	payload? : String;
+	qos? : String;
+	retain? : Boolean;
+}
+
 export interface ConnectionOptions {
 	clientId: string;
 	cleanSession?: boolean;
@@ -26,6 +33,7 @@ export interface ConnectionOptions {
 	tls?: TlsOptions;
 	allowUntrustedCA?: boolean;
 	enableSsl?: boolean;
+	will?: WillOptions;
 }
 
 export interface PublishOptions {
