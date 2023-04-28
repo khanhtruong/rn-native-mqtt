@@ -108,6 +108,8 @@ class MqttClient {
 
                 sslSettings["kCFStreamSSLIsServer"] = NSNumber(value: false)
                 sslSettings["kCFStreamSSLCertificates"] = [identity] as CFArray
+                sslSettings["kCFStreamSSLPeerName"] = url.host! as NSObject
+
                 self.client.sslSettings = sslSettings
             }
         }

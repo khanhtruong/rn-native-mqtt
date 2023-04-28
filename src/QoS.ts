@@ -1,1 +1,1 @@
-export type QoS = 0 | 1 | 2;
+export type QoS = 0 | 1 | 2
