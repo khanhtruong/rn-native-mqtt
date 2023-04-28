@@ -6,21 +6,33 @@ NOTE: This is currently tested only on React Native 0.60 and above using the aut
 
 This library uses the following native MQTT client libraries:
 
-* iOS - https://github.com/emqx/CocoaMQTT
-* Android - https://github.com/eclipse/paho.mqtt.java
+- iOS - https://github.com/emqx/CocoaMQTT
+- Android - https://github.com/eclipse/paho.mqtt.java
 
 It supports most of the features supported by these libraries. Tradeoffs have been made to keep the interface unified, so some features are not exposed if not supported in both libraries.
 
 ### This fork instead original 100% working with mqtt TLS connection with AWS on Android and IOS!
 
+## What have been improved
+
+### iOS issue
+
+Problem:
+
+- When enable SSL, iOS cannot connect to MQTT server
+
+Solution:
+
+- Added `sslSettings["kCFStreamSSLPeerName"] = url.host! as NSObject` into `MqttClient.swift`
+
 ## Getting started
 
 ```
-$ npm i --save github:FrozenPyrozen/rn-native-mqtt
+$ npm i --save github:khanhtruong/rn-native-mqtt
 
 -- or --
 
-$ yarn add github:FrozenPyrozen/rn-native-mqtt
+$ yarn add github:khanhtruong/rn-native-mqtt
 ```
 
 ## Installation
@@ -39,53 +51,54 @@ There are still some manual tasks that need to be done to wire this package up f
 
 ### Android
 
-* Set your `minSdkVersion` in the `android/build.gradle` file to 21 or higher.
+- Set your `minSdkVersion` in the `android/build.gradle` file to 21 or higher.
 
 ### iOS
 
 We need to add a bridging header file to your Xcode project because this module was written in Swift.
 
-* Open your project's `ios` folder in Xcode.
-* Add a new Swift file to the project. Name it whatever you want. Add a bridging header file when it prompts you to add one automatically.
+- Open your project's `ios` folder in Xcode.
+- Add a new Swift file to the project. Name it whatever you want. Add a bridging header file when it prompts you to add one automatically.
 
 Now you need to run a `pod install` for your project.
 
-* Navigate to the `ios` folder in your project and run `pod install`.
+- Navigate to the `ios` folder in your project and run `pod install`.
 
 ## Usage
 
 This is a quick example written in Typescript.
 
 ```javascript
-import * as Mqtt from 'react-native-native-mqtt';
+import * as Mqtt from "react-native-native-mqtt"
 
-const client = new Mqtt.Client('[SCHEME]://[URL]:[PORT]');
+const client = new Mqtt.Client("[SCHEME]://[URL]:[PORT]")
 
 // Promisifyed connect
 await client.connect({
-	clientId: 'CLIENT_ID',
-	tls: {
-          caDer: 'ca certificate in Buffer, in my case Amazon root certificate, which I get from BA endpoint',
-          cert: 'cert in Buffer, in my case from BA endpoint',
-          key: 'key in Buffer, in my case from BA endpoint',
-        },
-        enableSsl: true,
-});
+  clientId: "CLIENT_ID",
+  tls: {
+    caDer:
+      "ca certificate in Buffer, in my case Amazon root certificate, which I get from BA endpoint",
+    cert: "cert in Buffer, in my case from BA endpoint",
+    key: "key in Buffer, in my case from BA endpoint",
+  },
+  enableSsl: true,
+})
 
 client.on(Mqtt.Event.Message, (topic: string, message: Buffer) => {
-	console.log('Mqtt Message:', topic, message.toString());
-});
+  console.log("Mqtt Message:", topic, message.toString())
+})
 
 client.on(Mqtt.Event.Connect, () => {
-	console.log('MQTT Connect');
-	client.subscribe(['#'], [0]);
-});
+  console.log("MQTT Connect")
+  client.subscribe(["#"], [0])
+})
 
 client.on(Mqtt.Event.Error, (error: string) => {
-	console.log('MQTT Error:', error);
-});
+  console.log("MQTT Error:", error)
+})
 
 client.on(Mqtt.Event.Disconnect, (cause: string) => {
-	console.log('MQTT Disconnect:', cause);
-});
+  console.log("MQTT Disconnect:", cause)
+})
 ```
