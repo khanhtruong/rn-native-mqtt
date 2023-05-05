@@ -2,7 +2,6 @@
 .vscode/
 .tscache/
 Checkouts/
-src/
 
 tsconfig.json
 tslint.json
